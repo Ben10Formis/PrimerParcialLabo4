@@ -1,0 +1,147 @@
+<h2>Personas</h2>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<p>
+   <!--CON EVENTO CHANGE-->
+   <input type="radio"  name="radio" [(ngModel)]="mostrar" value="Todos" hidden> <!-- change o click es lo mismo para el radio-->
+   <input type="checkbox"  name="radio" [(ngModel)]="banderaEditar" > Editar <br>
+   <input type="radio"  name="radio" [(ngModel)]="mostrar" value="ngStyle" hidden>
+</p>
+<div>
+<!--<h2>Usted ha decidido mostrar: {{mostrar}}</h2>-->
+<!--<div style="border: 1px solid deepskyblue; padding: 10px; width:200px; margin-top: 10px;">-->
+<div *ngIf="mostrar=='Todos' && !banderaEditar">
+
+   <table style="width:100%;">
+      <thead>
+         <th ALIGN=left>NOMBRE </th>
+         <th ALIGN=left>APELLIDO</th>
+         <th ALIGN=left>DNI</th>
+         <th ALIGN=left>SEXO</th>
+         <!--<th ALIGN=left>PASS</th>-->
+         <th ALIGN=left>ACCIONES</th>
+         <th ALIGN=left>FOTO</th>
+         
+         
+      </thead>
+      <tbody >
+
+
+      
+
+         <tr class="example-trFem" *ngFor="let persona of personas" >
+                  <!--<td style="width:10%; ">{{persona.nombre}}</td>-->
+                  <td *ngIf="persona.sexo == 'F'" style="background-color:#ff5e5e">{{persona.nombre}}</td>
+                  <td *ngIf="persona.sexo == 'M'" style="background-color:#71ef6d">{{persona.nombre}}</td>
+                  <!--<td style="width:10%; ">{{persona.apellido}}</td>-->
+                  <td *ngIf="persona.sexo == 'F'" style="background-color:#ff5e5e">{{persona.apellido}}</td>
+                 <td *ngIf="persona.sexo == 'M'" style="background-color:#71ef6d">{{persona.apellido}}</td>
+                <!--  <td style="width:10%; ">{{persona.dni}}</td>-->
+                 <td *ngIf="persona.sexo == 'F'" style="background-color:#ff5e5e">{{persona.dni}}</td>
+                 <td *ngIf="persona.sexo == 'M'" style="background-color:#71ef6d">{{persona.dni}}</td>
+                <!--  <td style="width:10%; ">{{persona.sexo}}</td>-->
+                 <td *ngIf="persona.sexo == 'F'" style="background-color:#ff5e5e">{{persona.sexo}}</td>
+                  <td *ngIf="persona.sexo == 'M'" style="background-color:#71ef6d">{{persona.sexo}}</td>
+
+                  <!--<td style="width:10%; ">{{persona.password}}</td>-->
+                  <td style="width:20%; ">
+                     <form action="http://localhost:8080/abm_apirest/apirest.php/borrar/{{persona.id}}" id="frmBorrar" method="GET"> 
+                        <input type="button" onclick="javascript:document.getElementById('frmBorrar').submit();" value="Borrar" >
+                     </form>                     
+                  </td>
+                  <td style="width:20%; "><img src="/assets/{{persona.foto}}" class="imagen" /></td>
+         </tr> 
+      </tbody>
+   </table>
+</div>
+
+<div *ngIf="banderaEditar">
+		<div class="container">
+			<form action="http://localhost:8080/abm_apirest/apirest.php/registro/" method="POST" id="frmAlta" style="margin:0 auto;max-width:600px;padding:15px;">
+				<legend>Alta</legend>
+
+				<div class="form-group">
+					<label for="nombre">Nombre</label>
+					<input type="text" class="form-control" id="nombre" name="nombre" placeholder="Introduzca Nombre" minlength="4" required >
+                              <label for="apellido">Apellido</label>
+					<input type="text" class="form-control" id="apellido" name="apellido" placeholder="Introduzca Apellido" minlength="4" required >
+                              <label for="password">Password</label>
+					<input type="password" class="form-control" id="password" name="password" placeholder="Introduzca Password" minlength="4" required >
+					<!--<label for="valor_date">Valor Fecha</label>-->
+					<!--<input type="date" class="form-control" id="valor_date" name="valor_date" placeholder="Introduzca valor 'Date'" required>-->
+					<label for="dni">DNI</label>
+					<input type="number" class="form-control" id="dni" min="0000" name="dni" placeholder="Introduzca su DNI">
+
+                              Sexo:<br>
+                              <input type="radio"  name="sexo" value="M" >  Masculino <br>
+                              <input type="radio"  name="sexo" value="F" > Femenino  <br>
+
+				   </div>
+               <label for="Foto">Foto</label>
+               <input type="text" class="form-control" id="foto" name="foto" placeholder="Ingrese la foto" minlength="4" required >
+
+
+				<input type="button"  onclick="javascript:document.getElementById('frmAlta').submit();"  class="btn btn-primary" value="Guardar" />
+			</form>
+		</div>
+</div>
+
+<div *ngIf="mostrar=='Argentina'">
+   <table style="width:100%;">
+      <thead>
+         <th ALIGN=left>NOMBRE</th>
+         <th ALIGN=left>ABREVIACION DEL PAIS</th>
+         <th ALIGN=left>EXTENSION DEL PAIS PARA URL</th>
+         
+      </thead>
+      <tbody>
+         
+         
+                <tr *ngFor="let pais of paises">
+
+               <td  *ngIf="pais.name=='Argentina'" style="width:33%; ">{{pais.name}}</td>
+               <td  *ngIf="pais.name=='Argentina'" style="width:33%; ">{{pais.alpha3Code}}</td>
+               <td  *ngIf="pais.name=='Argentina'" style="width:33%; ">{{pais.alpha2Code}}</td>
+                
+                </tr>
+          
+
+      </tbody>
+   </table>
+</div>
+<div *ngIf="mostrar=='ngStyle'">
+
+    <p><!--CON NGMODEL-->
+    <input type="radio" value="visible" name="radio" [(ngModel)]="visibilidad" selected>Mostrar Bandera
+ 
+    <input type="radio" value="hidden" name="radio" [(ngModel)]="visibilidad" >Ocultar Bandera
+    </p>
+    
+   <table style="width:100%;">
+      <thead>
+         <th ALIGN=left>NOMBRE PAIS</th>
+         <th ALIGN=left>ABREVIACION DEL PAIS</th>
+         <th ALIGN=left>EXTENSION DEL PAIS PARA URL</th>
+         
+      </thead>
+      <tbody>
+         <tr *ngFor="let pais of paises">
+           
+               <td  *ngIf="pais.name=='Argentina'" style="width:33%; ">{{pais.name}}</td>
+               <td  *ngIf="pais.name=='Argentina'" style="width:33%; ">{{pais.alpha3Code}}</td>
+               <td  *ngIf="pais.name=='Argentina'" style="width:33%; ">{{pais.alpha2Code}}</td>
+            
+         </tr>
+      </tbody>
+   </table>
+   
+   <img [src]="ruta" style= "position:absolute; width:300px;" [ngStyle]="{'visibility': visibilidad}"/>  
+</div>
+
+
+
+
+
+ 
+
+

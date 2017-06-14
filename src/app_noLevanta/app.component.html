@@ -1,0 +1,17 @@
+<h1>
+  {{title}}
+  <!--<ng2-smart-table
+    [settings]="settings"
+    [source]=data
+    (editConfirm)='editar($event)'
+    (edit)='editar($event)'
+  ></ng2-smart-table>-->
+
+  <!--Carga con load()-->
+  <ng2-smart-table 
+    [settings]="settings"
+    [source]="source"
+    (editConfirm)='editar($event)'
+    (edit)='editar($event)'
+  ></ng2-smart-table>
+</h1>
